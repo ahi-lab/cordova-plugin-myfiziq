@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.myfiziq.sdk" version="18.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>cordova-plugin-myfiziq</name>
+    <description>MyFiziqSDK Cordova plugin</description>
+    <dependency id="cordova-plugin-cocoapod-support"/>
+    <js-module name="cordova-plugin-myfiziq" src="www/cordova-plugin-myfiziq.js">
+        <clobbers target="cordova.plugins.cordova-plugin-myfiziq" />
+    </js-module>
+    <platform name="ios">
+        <!-- set minimum ios version and enable use_frameworks! -->
+        <pods-config ios-min-version="11.2" use-frameworks="true">
+            <!-- add private spec sources -->
+            <source url="https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-podrepo"/>
+            <source url="https://github.com/CocoaPods/Specs.git"/>
+        </pods-config>
+        <!-- use the latest version of a pod -->
+        <pod branch="18.1.0" git="https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios" name="MyFiziqSDK" />
+
+        <config-file parent="/*" target="config.xml">
+            <feature name="cordova-plugin-myfiziq">
+                <param name="ios-package" value="cordova-plugin-myfiziq" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/cordova-plugin-myfiziq.h" />
+        <source-file src="src/ios/cordova-plugin-myfiziq.m" />
+    </platform>
+</plugin>

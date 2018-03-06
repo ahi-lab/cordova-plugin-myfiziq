@@ -1,0 +1,25 @@
+{
+  "name": "com.myfiziq.sdk",
+  "version": "18.1.0",
+  "description": "MyFiziqSDK Cordova plugin",
+  "cordova": {
+    "id": "com.myfiziq.sdk",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MyFiziqApp/cordova-plugin-myfiziq.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "MyFiziq Dev",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/MyFiziqApp/cordova-plugin-myfiziq.git/issues"
+  },
+  "homepage": "https://github.com/MyFiziqApp/cordova-plugin-myfiziq.git#readme"
+}
