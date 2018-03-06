@@ -1,9 +1,9 @@
 // MyFiziqSDK
 
 #import <Cordova/CDV.h>
-@import MyFiziqSDK
+@import MyFiziqSDK;
 
-@interface cordova-plugin-myfiziq : CDVPlugin <MyFiziqSDKDelegate>
+@interface CordovaPluginMyfiziq : CDVPlugin <MyFiziqSDKDelegate>
 // MyFiziqSDK
 - (void)mfzSdkSetup:(CDVInvokedUrlCommand *)command;
 - (void)mfzSdkAnswerLogins:(CDVInvokedUrlCommand *)command;

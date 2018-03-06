@@ -2,13 +2,13 @@
 
 #import "cordova-plugin-myfiziq.h"
 
-@interface cordova-plugin-myfiziq()
+@interface CordovaPluginMyfiziq()
 @property (nonatomic, strong) NSDictionary *m_config;
 @property (nonatomic, strong) AWSTaskCompletionSource<NSDictionary *> *m_authTokens;
 @end
 
 
-@implementation cordova-plugin-myfiziq
+@implementation CordovaPluginMyfiziq
 
 #pragma mark Delegates
 
@@ -41,7 +41,7 @@ indirectly invokes plugin 'logins' with the auth token set.
     self.m_authTokens = [[AWSTaskCompletionSource<NSDictionary *> alloc] init];
     if (self.commandDelegate) {
         // Call the Cordova responder.
-        [self.commandDelegate evalJS:@"myfiziqGetAuthToken()"];
+        [self.commandDelegate evalJs:@"myfiziqGetAuthToken()"];
     } else {
         [self.m_authTokens trySetResult:nil];
     }
@@ -60,7 +60,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 - error_cb
  */
 - (void)mfzSdkSetup:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         NSString *key = [command.arguments objectAtIndex:0];
         NSString *secret = [command.arguments objectAtIndex:1];
@@ -89,7 +89,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 - idp_token
  */
 - (void)mfzSdkAnswerLogins:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         NSString *idp_key = [command.arguments objectAtIndex:0];
         NSString *idp_token = [command.arguments objectAtIndex:1];
@@ -114,7 +114,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 -
  */
 - (void)mfzSdkInitiateAvatarCreation:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         [mfz initiateAvatarCreationWithOptions:nil fromViewController:self.viewController completion:^(NSError * _Nullable errCapture) {
@@ -136,10 +136,10 @@ indirectly invokes plugin 'logins' with the auth token set.
 #pragma mark - MyFiziqSDK Properties
 
 - (void)mfzSdkStatusConnection:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.connectionStatus];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.statusConnection];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -149,7 +149,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzSdkStatusVersion:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.statusVersion];
@@ -162,10 +162,23 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzSdkAppId:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.appId];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.appId];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } @catch (NSException *exception) {
+        NSLog(@"%@", exception.reason);
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
+}
+
+- (void)mfzSdkVendorId:(CDVInvokedUrlCommand *)command {
+    __block CDVPluginResult *pluginResult = nil;
+    @try {
+        MyFiziqSDK *mfz = [MyFiziqSDK shared];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.vendorId];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -175,10 +188,10 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzSdkClientId:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.clientId];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.clientId];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -188,10 +201,10 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzSdkEnv:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.env];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.env];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -201,10 +214,10 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzSdkCognitoUserPoolId:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.cognitoUserPoolId];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.cognitoUserPoolId];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -214,10 +227,10 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzSdkCognitoUserPoolRegion:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.cognitoUserPoolRegion];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.cognitoUserPoolRegion];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -227,10 +240,10 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzSdkCognitoUserPoolLoginsKey:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.cognitoUserPoolLoginsKey];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.cognitoUserPoolLoginsKey];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -245,7 +258,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 - optional_email
  */
 - (void)mfzUserRegister:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         NSString *email = [command.arguments objectAtIndex:0];
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
@@ -269,7 +282,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 - optional_email
  */
 - (void)mfzUserLogin:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         NSString *email = [command.arguments objectAtIndex:0];
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
@@ -292,8 +305,8 @@ indirectly invokes plugin 'logins' with the auth token set.
 /*
 - 
  */
-- (void)mfzUserLogin:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+- (void)mfzUserLogout:(CDVInvokedUrlCommand *)command {
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         [mfz.user logOutWithCompletion:^(NSError *err) {
@@ -316,7 +329,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 - 
  */
 - (void)mfzUserUpdateDetails:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         [mfz.user updateDetailsWithCompletion:^(NSError *errUpdate) {
@@ -324,7 +337,7 @@ indirectly invokes plugin 'logins' with the auth token set.
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             } else {
-                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:err.localizedDescription];
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errUpdate.localizedDescription];
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             }
         }];
@@ -338,7 +351,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 #pragma mark - MyFiziqUser Properties
 
 - (void)mfzUserIsLoggedIn:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:mfz.user.isLoggedIn];
@@ -351,10 +364,10 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserId:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInteger:mfz.user.uid];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.user.uid];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -364,10 +377,10 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserGender:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.user.gender];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.user.gender];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -377,7 +390,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserSetGender:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         NSNumber *newGender = [command.arguments objectAtIndex:0];
@@ -396,7 +409,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserEmail:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.user.email];
@@ -409,12 +422,12 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserSetEmail:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         NSString *newEmail = [command.arguments objectAtIndex:0];
         mfz.user.email = newEmail;
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.user.gender];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:mfz.user.email];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } @catch (NSException *exception) {
         NSLog(@"%@", exception.reason);
@@ -424,7 +437,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserMeasurementPreference:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.user.measurementPreference];
@@ -437,7 +450,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserSetMeasurementPreference:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         NSNumber *newMeasurePref = [command.arguments objectAtIndex:0];
@@ -456,7 +469,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserWeightInKg:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:(double)mfz.user.weightInKg];
@@ -469,7 +482,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserSetWeightInKg:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         NSNumber *newWeight = [command.arguments objectAtIndex:0];
@@ -485,7 +498,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserHeightInCm:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:(double)mfz.user.heightInCm];
@@ -498,7 +511,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzUserSetHeightInCm:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         NSNumber *newHeight = [command.arguments objectAtIndex:0];
@@ -531,7 +544,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 - attempt_id
  */
 - (void)mfzAvatarDownloadMesh:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -556,7 +569,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 #pragma mark - MyFiziqAvatar Properties
 
 - (void)mfzAvatarHasDownloadedMesh:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -574,7 +587,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarDate:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -592,7 +605,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarGender:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -610,7 +623,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarMeshCachedFile:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -628,7 +641,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarState:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -646,7 +659,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarHeightInCm:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -664,7 +677,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarWeightInKg:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -682,7 +695,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarChestInCm:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -700,7 +713,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarWaistInCm:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -718,7 +731,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarHipInCm:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -736,7 +749,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarInseamInCm:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -754,7 +767,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 }
 
 - (void)mfzAvatarThighInCm:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
         if (!avatar) {
@@ -776,8 +789,8 @@ indirectly invokes plugin 'logins' with the auth token set.
 /*
 - 
  */
-- (void)mfzAvatarDownloadMesh:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+- (void)mfzAvatarMgrRequestAvatars:(CDVInvokedUrlCommand *)command {
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         [mfz.avatars requestAvatarsWithSuccess:^{
@@ -798,7 +811,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 - attempt_ids[]
  */
 - (void)mfzAvatarMgrDeleteAvatars:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         // Construct the array with strict types
         NSMutableArray<NSString *> *arr = [[NSMutableArray<NSString *> alloc] initWithCapacity:command.arguments.count];
@@ -807,7 +820,7 @@ indirectly invokes plugin 'logins' with the auth token set.
         }
         // Delete all avatars in the list.
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        [mfz.avatars deleteAvatars:@[self.avatarResult] success:^{
+        [mfz.avatars deleteAvatars:(NSArray *)arr success:^{
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } failure:^(NSError *error) {
@@ -824,7 +837,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 #pragma mark - MyFiziqAvatarManager Properties
 
 - (void)mfzAvatarMgrAllAvatars:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult = nil;
+    __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         // Construct the return array
