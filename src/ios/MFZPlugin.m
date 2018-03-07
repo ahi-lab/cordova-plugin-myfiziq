@@ -41,7 +41,7 @@ indirectly invokes plugin 'logins' with the auth token set.
     self.m_authTokens = [[AWSTaskCompletionSource<NSDictionary *> alloc] init];
     if (self.commandDelegate) {
         // Call the Cordova responder.
-        [self.commandDelegate evalJs:@"myfiziqGetAuthToken()"];
+        [self.commandDelegate evalJs:@"app.myfiziqGetAuthToken()"];
     } else {
         [self.m_authTokens trySetResult:nil];
     }
@@ -97,7 +97,11 @@ indirectly invokes plugin 'logins' with the auth token set.
         NSString *idp_key = [command.arguments objectAtIndex:0];
         NSString *idp_token = [command.arguments objectAtIndex:1];
         // Try set response
-        NSDictionary *tokenResult = @{idp_key:idp_token};
+        NSDictionary *tokenResult = nil;
+        if (idp_key && idp_token && ![idp_key isEqualToString:@""] && ![idp_token isEqualToString:@""]) {
+            tokenResult = @{idp_key:idp_token};
+        }
+        // Respond
         if (self.m_authTokens) {
             [self.m_authTokens trySetResult:tokenResult];
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];

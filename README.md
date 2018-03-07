@@ -15,19 +15,34 @@ When the ios platform add command is run, the MyFiziqSDK Cocoapod and dependenci
 
 ## Use example
 
-In the Cordova App projct, ddit `www/js/index.js` and add the following code inside `onDeviceReady`
+In the Cordova App projct, edit `www/js/index.js` and implement the following:
 
 ```js
-    var success = function(message) {
-        alert(message);
+onDeviceReady: function() {
+    var success = function() {
+        alert("MyFiziqSDK setup success");
     }
-
-    var failure = function() {
-        alert("Error calling MyFiziq Plugin setup");
+    var failure = function(msg) {
+        alert("MyFiziqSDK setup failed");
     }
-
     myfiziq.mfzSdkSetup("MYFIZIQ KEY", "MYFIZIQ SECRET", "MYFIZIQ ENV", success, failure);
+
+    app.receivedEvent('deviceready');
+},
+myfiziqGetAuthToken: function() {
+    var success = function() {
+        alert("MyFiziqSDK auth success");
+    }
+    var failure = function(msg) {
+        alert("MyFiziqSDK auth failed");
+    }
+    myfiziq.mfzSdkAnswerLogins("IDP KEY", "IDP TOKEN", success, failure);
+}
 ```
+
+**NOTE:** Be sure to answer the auth token request by facilitating the AWS Cognito Federated Identity service requirement by passing the idP key and token to the mfzSdkAnswerLogins function call. See: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentity.html#getId-property for more information.
+
+If user not logged in, just pass empty strings to the answer function: `myfiziq.mfzSdkAnswerLogins("", "", success, failure);`.
 
 ## Author
 
