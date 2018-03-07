@@ -1,4 +1,5 @@
 #import <Cordova/CDV.h>
+@import MyFiziqSDK;
 
 @interface MFZPlugin : CDVPlugin <MyFiziqSDKDelegate>
 
