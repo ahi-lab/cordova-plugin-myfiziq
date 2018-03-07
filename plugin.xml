@@ -9,7 +9,9 @@
   <issue>https://github.com/MyFiziqApp/cordova-plugin-myfiziq/issues</issue>
 
   <engines>
-    <engine name="cordova" version=">=3.4.0"/>
+    <engine name="cordova" version=">=7.0.0"/>
+    <engine name="cordova-android" version=">=6.3.0" />
+    <engine name="cordova-ios" version=">=4.4.0" />
   </engines>
 
   <asset src="www/myfiziq.js" target="js/myfiziq.js"/>
