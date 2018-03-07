@@ -2,11 +2,11 @@
 <plugin id="com.myfiziq.sdk" version="18.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>cordova-plugin-myfiziq</name>
     <description>MyFiziqSDK Cordova plugin</description>
-    <dependency id="cordova-plugin-cocoapod-support"/>
-    <js-module name="cordova-plugin-myfiziq" src="www/cordova-plugin-myfiziq.js">
-        <clobbers target="cordova.plugins.cordova-plugin-myfiziq" />
-    </js-module>
+    <repo>https://github.com/MyFiziqApp/cordova-plugin-myfiziq.git</repo>
+    <issue>https://github.com/MyFiziqApp/cordova-plugin-myfiziq/issues</issue>
+    
     <platform name="ios">
+        <dependency id="cordova-plugin-cocoapod-support"/>
         <!-- set minimum ios version and enable use_frameworks! -->
         <pods-config ios-min-version="11.2" use-frameworks="true">
             <!-- add private spec sources -->
@@ -15,6 +15,10 @@
         </pods-config>
         <!-- use the latest version of a pod -->
         <pod branch="18.1.0" git="https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios" name="MyFiziqSDK" />
+
+        <js-module name="cordova-plugin-myfiziq" src="www/cordova-plugin-myfiziq.js">
+            <clobbers target="CordovaPluginMyfiziq" />
+        </js-module>
 
         <config-file parent="/*" target="config.xml">
             <feature name="cordova-plugin-myfiziq">

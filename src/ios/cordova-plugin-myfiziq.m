@@ -12,6 +12,9 @@
 
 #pragma mark Delegates
 
+- (void)pluginInitialize {
+}
+
 /*
 App reload (lifecycle for camera permissions form example), will cause reload to execute.
  */
@@ -62,6 +65,7 @@ indirectly invokes plugin 'logins' with the auth token set.
 - (void)mfzSdkSetup:(CDVInvokedUrlCommand *)command {
     __block CDVPluginResult *pluginResult = nil;
     @try {
+        NSLog(@"MyFiziqSDK setup called");
         NSString *key = [command.arguments objectAtIndex:0];
         NSString *secret = [command.arguments objectAtIndex:1];
         NSString *env = [command.arguments objectAtIndex:2];
@@ -71,9 +75,11 @@ indirectly invokes plugin 'logins' with the auth token set.
         [mfz setupWithConfig:self.m_config
                 authDelegate:self
                      success:^(NSDictionary * _Nonnull status) {
+                         NSLog(@"MyFiziqSDK setup success");
                          pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
                          [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
                     } failure:^(NSError * _Nonnull error) {
+                        NSLog(@"MyFiziqSDK setup failed");
                          pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
                          [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
                     }];
