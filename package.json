@@ -16,10 +16,16 @@
     "ecosystem:cordova",
     "cordova-ios"
   ],
-  "author": "MyFiziq Dev",
-  "license": "SEE LICENSE IN LICENSE.md",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.4.0"
+    }
+  ],
+  "author": "MyFiziq",
+  "license": "Refer to LICENSE.md",
   "bugs": {
-    "url": "https://github.com/MyFiziqApp/cordova-plugin-myfiziq.git/issues"
+    "url": "https://github.com/MyFiziqApp/cordova-plugin-myfiziq/issues"
   },
-  "homepage": "https://github.com/MyFiziqApp/cordova-plugin-myfiziq.git#readme"
+  "homepage": "https://github.com/MyFiziqApp/cordova-plugin-myfiziq#readme"
 }

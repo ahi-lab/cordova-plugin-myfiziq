@@ -1,9 +1,7 @@
-// MyFiziqSDK
-
 #import <Cordova/CDV.h>
-@import MyFiziqSDK;
 
-@interface CordovaPluginMyfiziq : CDVPlugin <MyFiziqSDKDelegate>
+@interface MFZPlugin : CDVPlugin <MyFiziqSDKDelegate>
+
 // MyFiziqSDK
 - (void)mfzSdkSetup:(CDVInvokedUrlCommand *)command;
 - (void)mfzSdkAnswerLogins:(CDVInvokedUrlCommand *)command;
@@ -52,4 +50,5 @@
 - (void)mfzAvatarMgrRequestAvatars:(CDVInvokedUrlCommand *)command;
 - (void)mfzAvatarMgrDeleteAvatars:(CDVInvokedUrlCommand *)command;
 - (void)mfzAvatarMgrAllAvatars:(CDVInvokedUrlCommand *)command;
+
 @end

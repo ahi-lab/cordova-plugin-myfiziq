@@ -1,14 +1,11 @@
-/********* cordova-plugin-myfiziq.m Cordova Plugin Implementation *******/
+#import "MFZPlugin.h"
 
-#import "cordova-plugin-myfiziq.h"
-
-@interface CordovaPluginMyfiziq()
+@interface MFZPlugin()
 @property (nonatomic, strong) NSDictionary *m_config;
 @property (nonatomic, strong) AWSTaskCompletionSource<NSDictionary *> *m_authTokens;
 @end
 
-
-@implementation CordovaPluginMyfiziq
+@implementation MFZPlugin
 
 #pragma mark Delegates
 
