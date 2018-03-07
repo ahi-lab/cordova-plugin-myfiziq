@@ -15,7 +15,7 @@ When the ios platform add command is run, the MyFiziqSDK Cocoapod and dependenci
 
 ## Use example
 
-In the Cordova App projct, edit `www/js/index.js` and implement the following:
+In the Cordova App project, edit `www/js/index.js` and implement the following:
 
 ```js
 onDeviceReady: function() {
@@ -37,12 +37,14 @@ myfiziqGetAuthToken: function() {
         alert("MyFiziqSDK auth failed");
     }
     myfiziq.mfzSdkAnswerLogins("IDP KEY", "IDP TOKEN", success, failure);
-}
+},
 ```
 
-**NOTE:** Be sure to answer the auth token request by facilitating the AWS Cognito Federated Identity service requirement by passing the idP key and token to the mfzSdkAnswerLogins function call. See: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentity.html#getId-property for more information.
+Where: **MYFIZIQ KEY** and **MYFIZIQ SECRET** are the token and secret keys provided by MyFiziq for the App. **MYFIZIQ ENV** indicates what environment the app is associated to, which can either be `staging` or `prod`.
 
-If user not logged in, just pass empty strings to the answer function: `myfiziq.mfzSdkAnswerLogins("", "", success, failure);`.
+**NOTE:** Be sure to answer the auth token request by facilitating the AWS Cognito Federated Identity service requirement by passing the idP key and token to the `mfzSdkAnswerLogins()` function call. See: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentity.html#getId-property for more information.
+
+If user not logged in, pass empty strings to the answer function, for example: `myfiziq.mfzSdkAnswerLogins("", "", success, failure);`.
 
 ## Author
 
