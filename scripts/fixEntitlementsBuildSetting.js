@@ -9,4 +9,11 @@ if (idx != -1) {
     fs.writeFileSync(xcconfigFile, newText, 'utf-8');
 }
 // The CocoaPods plugin framework path incorrectly gets malformed with the redundant inclusion of 'Pods' directory. Fix for this is to add a symlink.
-fs.symlink('./platforms/ios/Pods', './platforms/ios/Pods/Pods')
+fs.symlink('../Pods', './platforms/ios/Pods/Pods', 'dir', function (err) {
+    if (err) {
+      console.log(
+        err.code === 'EEXIST' ? "Link already created!\n" : "Error\n"
+      );
+      console.log(err);
+    }
+  });
