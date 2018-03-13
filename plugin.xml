@@ -49,6 +49,9 @@
       </feature>
     </config-file>
 
+    <hook type="before_build" src="scripts/fixEntitlementsBuildSetting.js"/>
+    <hook type="before_run" src="scripts/fixEntitlementsBuildSetting.js"/>
+
     <header-file src="src/ios/MFZPlugin.h" target-dir="MyFiziqPlugin"/>
     <source-file src="src/ios/MFZPlugin.m" target-dir="MyFiziqPlugin"/>
   </platform>
