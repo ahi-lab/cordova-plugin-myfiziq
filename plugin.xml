@@ -32,6 +32,9 @@
   </platform> -->
 
   <platform name="ios">
+    <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+      <string>Allow camera access</string>
+    </config-file>
 
     <dependency id="cordova-plugin-cocoapod-support"/>
     <!-- set minimum ios version and enable use_frameworks! -->
