@@ -10,7 +10,7 @@ module.exports = {
         exec(success_cb, error_cb, 'MyFiziq', 'mfzSdkAnswerLogins', [idp_key, idp_token]);
     },
     mfzSdkInitiateAvatarCreation: function (success_cb, error_cb) {
-        exec(success_cb, error_cb, 'MyFiziq', 'mfzSdkInitiateAvatarCreation', [idp_key, idp_token]);
+        exec(success_cb, error_cb, 'MyFiziq', 'mfzSdkInitiateAvatarCreation', []);
     },
     // Properties
     mfzSdkStatusConnection: function (success_cb, error_cb) {
