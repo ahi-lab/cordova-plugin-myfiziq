@@ -143,6 +143,6 @@ module.exports = {
     },
     // Properties
     mfzAvatarMgrAllAvatars: function (success_cb, error_cb) {
-        exec(success_cb, error_cb, 'MyFiziq', 'mfzAvatarMgrAllAvatars', [new_height]);
+        exec(success_cb, error_cb, 'MyFiziq', 'mfzAvatarMgrAllAvatars', []);
     }
 };
