@@ -46,6 +46,10 @@ Where: **MYFIZIQ KEY** and **MYFIZIQ SECRET** are the token and secret keys prov
 
 If user not logged in, pass empty strings to the answer function, for example: `myfiziq.mfzSdkAnswerLogins("", "", success, failure);`.
 
+## Custom styling with CSS
+
+The MyFiziqSDK UI can be customised to a high degree of flexibility using CSS. The iOS SDK uses the [InterfaCSS](https://github.com/tolo/InterfaCSS) framework to bind the CSS stylings to the native UI. By simply distributing a custom CSS file with the APP and calling the `mfzSdkLoadCSS` method to declare the CSS file path will cause the MyFiziq Avatar Creation Process UI to be customised. For reference, the base CSS can be refered to to [here](myfiziq-sdk.css).
+
 ## Author
 
 MyFiziq iOS Dev, dev@myfiziq.com

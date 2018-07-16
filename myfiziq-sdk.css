@@ -1,0 +1,326 @@
+/* See InterfaCSS Github wiki to see style parameters for UIView elements */
+
+/* Global: */
+@mfzSdkColorBase: white;
+@mfzSdkColorBaseDark: rgba(74, 74, 74, 1.0);
+@mfzSdkColorBaseNeutral: rgba(181, 181, 166, 1.0);
+@mfzSdkColorPrimary: rgba(242, 153, 74, 1.0);
+@mfzSdkColorPrimaryProminent: rgba(255, 87, 33, 1.0);
+@mfzSdkColorHighlight: rgba(87, 204, 242, 1.0);
+@mfzSdkTitleFont: AvenirNext-DemiBold 30;
+@mfzSdkSubtitleFont: AvenirNext-DemiBold 20;
+@mfzSdkBodyFont: AvenirNext-Medium 16;
+@mfzSdkBodyBoldFont: AvenirNext-Bold 16;
+
+/* Activity animation: */
+@mfzSdkColorActivity: @mfzSdkColorBase;
+@mfzSdkColorHUDActivity: @mfzSdkColorPrimaryProminent;
+
+/* Alignment: */
+@mfzSdkAlignColorCountdownLabel: @mfzSdkColorPrimaryProminent;
+@mfzSdkAlignColorLabelPermision: @mfzSdkColorHighlight;
+@mfzSdkAlignColorLabelNoPermision: @mfzSdkColorPrimary;
+@mfzSdkAlignColorAligned: @mfzSdkColorPrimaryProminent;
+@mfzSdkAlignColorAlignedLocking: @mfzSdkColorHighlight;
+@mfzSdkAlignColorUnaligned: @mfzSdkColorBase;
+@mfzSdkAlignColorAim: @mfzSdkColorPrimaryProminent;
+@mfzSdkAlignRadius: 75.0;
+@mfzSdkAlignLineWidth: 6.0;
+@mfzSdkAlignCameraEnableText: "TAP TO\nENABLE\nCAMERA!" (font: @mfzSdkBodyFont, color: @mfzSdkAlignColorLabelNoPermision);
+@mfzSdkAlignCountdownFont: AvenirNext-Bold 75;
+@mfzSdkAlignCountdownText: "3" (font: @mfzSdkAlignCountdownFont, color: @mfzSdkAlignColorLabelPermision);
+@mfzSdkAlignTitleText: "Align Circles\n" (font: @mfzSdkTitleFont, color: @mfzSdkColorBase);
+@mfzSdkAlignInfoText: "\nTap screen to allow camera access.\nThis is necessary to create 3D avatars." (font: @mfzSdkBodyFont, color: @mfzSdkColorBase);
+
+/* Retry: */
+@mfzSdkRetryColorRail: rgba(0, 0, 0, 0.05);
+@mfzSdkRetryColorCounter: @mfzSdkColorBase;
+@mfzSdkRetryRadius: @mfzSdkAlignRadius;
+@mfzSdkRetryLineWidth: @mfzSdkAlignLineWidth;
+
+/* Pose Capture: */
+@mfzSdkPoseColorCountdownLabel: @mfzSdkColorBase;
+@mfzSdkPoseFontCountdownFontBigSize: 200.0;
+@mfzSdkPoseFontCountdownFontBig: AvenirNext-Bold 200;
+@mfzSdkPoseFontCountdownFontNormSize: 60.0;
+@mfzSdkPoseFontCountdownFontNorm: AvenirNext-Bold 60;
+@mfzSdkPoseColorGuideFront: rgba(33, 150, 84, 1.0);
+@mfzSdkPoseColorShutterFront: @mfzSdkPoseColorGuideFront;
+@mfzSdkPoseColorCountdownFrontLabel: @mfzSdkPoseColorGuideFront;
+@mfzSdkPoseColorGuideSide: rgba(156, 82, 224, 1.0);
+@mfzSdkPoseColorShutterSide: @mfzSdkPoseColorGuideSide;
+@mfzSdkPoseColorCountdownSideLabel: @mfzSdkPoseColorGuideSide;
+
+.mfz-sdk-pose-navlabel {
+    textColor: @mfzSdkColorBase;
+}
+
+.mfz-sdk-pose-titleview-front {
+    backgroundColor: @mfzSdkPoseColorGuideFront;
+    alpha: 0.7;
+}
+
+.mfz-sdk-pose-titleview-side {
+    backgroundColor: @mfzSdkPoseColorGuideSide;
+    alpha: 0.7;
+}
+
+.mfz-sdk-pose-titlelabel {
+    textColor: @mfzSdkColorBase;
+    font: @mfzSdkTitleFont;
+}
+
+/* Pose Contour: */
+@mfzSdkPoseContourFrontIsDashed: YES;
+@mfzSdkPoseContourFrontBase: @mfzSdkColorBase;
+@mfzSdkPoseContourFrontDash: @mfzSdkPoseColorGuideFront;
+
+@mfzSdkPoseContourSideIsDashed: YES;
+@mfzSdkPoseContourSideBase: @mfzSdkColorBase;
+@mfzSdkPoseContourSideDash: @mfzSdkPoseColorGuideSide;
+
+/* Pose Error: */
+@mfzSdkPoseErrTitleText: "Sorry" (font: @mfzSdkTitleFont, color: @mfzSdkColorBase);
+@mfzSdkPoseErrBodyText: "It seems something went wrong." (font: @mfzSdkBodyFont, color: @mfzSdkColorBase);
+@mfzSdkPoseErrCountdownText: "3" (font: @mfzSdkAlignCountdownFont, color: @mfzSdkColorBase);
+
+.mfz-sdk-pose-errview-minor {
+    backgroundColor: @mfzSdkColorPrimaryProminent;
+}
+
+.mfz-sdk-pose-errorlabel {
+    textColor: @mfzSdkColorBase;
+    font: @mfzSdkTitleFont;
+    textAlignment: center;
+}
+
+.mfz-sdk-pose-error-countdownlabel {
+    textColor: @mfzSdkColorBase;
+    font: @mfzSdkTitleFont;
+    textAlignment: center;
+}
+
+.mfz-sdk-pose-error-optbutton {
+    backgroundColor: @mfzSdkColorBaseDark;
+    titleColor: @mfzSdkColorBase;
+    titleLabel.font: @mfzSdkSubtitleFont;
+    titleLabel.textAlignment: center;
+}
+
+.mfz-sdk-pose-error-closebutton {
+    backgroundColor: @mfzSdkColorBaseNeutral;
+    titleColor: @mfzSdkColorBase;
+    titleLabel.font: @mfzSdkSubtitleFont;
+    titleLabel.textAlignment: center;
+}
+
+/* Pose Orientation Error: */
+@mfzSdkOrientationTitleText: "Incorrect Phone Orientation\n" (font: @mfzSdkTitleFont, color: @mfzSdkColorBase);
+/*@mfzSdkOrientationBodyText: "Your phone needs to be upright (portriat) for alignment\n\n" (font: @mfzSdkBodyBoldFont, color: @mfzSdkColorBase);*/
+@mfzSdkOrientationViewColor: rgba(0, 0, 0, 0.8);
+
+.mfz-sdk-pose-orientationerr-view {
+    backgroundColor: @mfzSdkOrientationViewColor;
+}
+
+.mfz-sdk-pose-orientationerr-label {
+    textColor: @mfzSdkColorBase;
+    textAlignment: center;
+}
+
+/* Pose Confirmation: */
+@mfzSdkPoseConfirmColorIndicator: @mfzSdkColorPrimaryProminent;
+@mfzSdkPoseConfirmViewColor: black;
+/*Front*/
+@mfzSdkPoseConfirmText11: "I confirm that I am wareing " (font: @mfzSdkBodyFont, color: @mfzSdkColorBase);
+@mfzSdkPoseConfirmText12: "form\nfitting clothing " (font: @mfzSdkBodyFont, color: @mfzSdkColorPrimary);
+@mfzSdkPoseConfirmText13: "and my arms and\nlegs are " (font: @mfzSdkBodyFont, color: @mfzSdkColorBase);
+@mfzSdkPoseConfirmText14: "inside the outline" (font: @mfzSdkBodyFont, color: @mfzSdkColorPrimary);
+@mfzSdkPoseConfirmText15: "." (font: @mfzSdkBodyFont, color: @mfzSdkColorBase);
+/*Side*/
+@mfzSdkPoseConfirmText21: "I confirm that my " (font: @mfzSdkBodyFont, color: @mfzSdkColorBase);
+@mfzSdkPoseConfirmText22: "feet are\ntogether" (font: @mfzSdkBodyFont, color: @mfzSdkColorPrimary);
+@mfzSdkPoseConfirmText23: ", arms " (font: @mfzSdkBodyFont, color: @mfzSdkColorBase);
+@mfzSdkPoseConfirmText24: "down my side" (font: @mfzSdkBodyFont, color: @mfzSdkColorPrimary);
+@mfzSdkPoseConfirmText25: "and\nI am inside the outline." (font: @mfzSdkBodyFont, color: @mfzSdkColorBase);
+
+
+.mfz-sdk-pose-confirm-view {
+    backgroundColor: @mfzSdkPoseConfirmViewColor;
+}
+
+.mfz-sdk-pose-confirm-yesbutton {
+    backgroundColor: @mfzSdkColorPrimaryProminent;
+    titleColor: @mfzSdkColorBase;
+    titleLabel.font: @mfzSdkSubtitleFont;
+    titleLabel.textAlignment: center;
+}
+
+.mfz-sdk-pose-confirm-retakebutton {
+    backgroundColor: @mfzSdkColorBaseNeutral;
+    titleColor: @mfzSdkColorBase;
+    titleLabel.font: @mfzSdkSubtitleFont;
+    titleLabel.textAlignment: center;
+}
+
+.mfz-sdk-pose-confirm-label {
+    textColor: @mfzSdkColorBase;
+    font: @mfzSdkBodyFont;
+    textAlignment: center;
+}
+
+/* Pose Confirm Help: */
+@mfzSdkConfirmHelpTitleHeight: 50.0;
+@mfzSdkConfirmHelpBodyHeight: 70.0;
+@mfzSdkConfirmHelpPadding: 20.0;
+@mfzSdkConfirmHelpSugBorderWidth: 2.0;
+@mfzSdkConfirmHelpOkButtonWidth: 200.0;
+@mfzSdkConfirmHelpOkButtonHeight: 40.0;
+
+.mfz-sdk-pose-confirmhelp-view {
+    backgroundColor: @mfzSdkColorBaseDark;
+}
+
+.mfz-sdk-pose-confirmhelp-title {
+    textColor: @mfzSdkColorBase;
+    font: @mfzSdkTitleFont;
+    textAlignment: center;
+}
+
+.mfz-sdk-pose-confirmhelp-body {
+    textColor: @mfzSdkColorBase;
+    font: @mfzSdkBodyFont;
+    textAlignment: center;
+    lineBreakMode: wordWrapping;
+    numberOfLines: 0;
+}
+
+.mfz-sdk-pose-confirmhelp-image {
+    backgroundColor: clear;
+}
+
+.mfz-sdk-pose-confirmhelp-sug-topborder {
+    backgroundColor: @mfzSdkColorPrimaryProminent;
+}
+
+.mfz-sdk-pose-confirmhelp-sug-bottomborder {
+    backgroundColor: @mfzSdkColorPrimaryProminent;
+}
+
+.mfz-sdk-pose-confirmhelp-suggestion {
+    textColor: @mfzSdkColorPrimaryProminent;
+    font: @mfzSdkBodyFont;
+    textAlignment: center;
+    lineBreakMode: wordWrapping;
+    numberOfLines: 0;
+}
+
+.mfz-sdk-pose-confirmhelp-ok-button {
+    backgroundColor: @mfzSdkColorPrimaryProminent;
+    titleColor: @mfzSdkColorBase;
+    titleLabel.font: @mfzSdkSubtitleFont;
+    titleLabel.textAlignment: center;
+}
+
+/* Pose Submit: */
+@mfzSdkSubmitTitleHeight: 40.0;
+@mfzSdkSubmitColorRail: @mfzSdkColorBaseNeutral;
+@mfzSdkSubmitProgressWidth: 200.0;
+@mfzSdkSubmitProgressHeight: 2.0;
+@mfzSdkSubmitProgressOffset: 40.0;
+
+.mfz-sdk-pose-submit-view {
+    backgroundColor: @mfzSdkColorBaseDark;
+}
+
+.mfz-sdk-pose-submit-label {
+    textColor: @mfzSdkColorBase;
+    font: @mfzSdkTitleFont;
+    textAlignment: center;
+}
+
+.mfz-sdk-pose-submit-progress {
+    progressTintColor: @mfzSdkColorPrimaryProminent;
+    trackTintColor: @mfzSdkSubmitColorRail;
+}
+
+/* Alerts: */
+@mfzSdkAlertLightBackgroundColor: @mfzSdkColorBase;
+@mfzSdkAlertDarkBackgroundColor: @mfzSdkColorBaseDark;
+@mfzSdkAlertTitleHeight: 40.0;
+@mfzSdkAlertPadding: 10.0;
+@mfzSdkAlertButtonSpacing: @mfzSdkAlertPadding;
+@mfzSdkAlertBodyMinHeight: 80.0;
+@mfzSdkAlertButtonsHeight: 50.0;
+@mfzSdkAlertWidth: 300.0;
+@mfzSdkAlertMinHeight: 100.0;
+
+.mfz-sdk-alertlight-view {
+    backgroundColor: @mfzSdkAlertLightBackgroundColor;
+    cornerRadius: 8.0;
+}
+
+.mfz-sdk-alertlight-title {
+    textColor: black;
+    font: @mfzSdkSubtitleFont;
+    textAlignment: center;
+}
+
+.mfz-sdk-alertlight-body {
+    textColor: black;
+    font: @mfzSdkBodyFont;
+    textAlignment: center;
+    lineBreakMode: wordWrapping;
+    numberOfLines: 0;
+}
+
+.mfz-sdk-alertlight-norm-button {
+    cornerRadius: 2.0;
+    backgroundColor: @mfzSdkColorBaseNeutral;
+    titleColor: @mfzSdkColorBase;
+    titleLabel.font: @mfzSdkSubtitleFont;
+    titleLabel.textAlignment: center;
+}
+
+.mfz-sdk-alertlight-high-button {
+    cornerRadius: 2.0;
+    backgroundColor: @mfzSdkColorPrimaryProminent;
+    titleColor: @mfzSdkColorBase;
+    titleLabel.font: @mfzSdkSubtitleFont;
+    titleLabel.textAlignment: center;
+}
+
+.mfz-sdk-alertdark-view {
+    backgroundColor: @mfzSdkAlertDarkBackgroundColor;
+}
+
+.mfz-sdk-alertdark-title {
+    textColor: white;
+    font: @mfzSdkSubtitleFont;
+    textAlignment: center;
+}
+
+.mfz-sdk-alertdark-body {
+    textColor: white;
+    font: @mfzSdkBodyFont;
+    textAlignment: center;
+    lineBreakMode: wordWrapping;
+    numberOfLines: 0;
+}
+
+.mfz-sdk-alertdark-norm-button {
+    cornerRadius: 2.0;
+    backgroundColor: @mfzSdkColorPrimaryProminent;
+    titleColor: @mfzSdkColorBase;
+    titleLabel.font: @mfzSdkSubtitleFont;
+    titleLabel.textAlignment: center;
+}
+
+.mfz-sdk-alertdark-high-button {
+    cornerRadius: 2.0;
+    backgroundColor: @mfzSdkColorBase;
+    titleColor: @mfzSdkColorBase;
+    titleLabel.font: @mfzSdkSubtitleFont;
+    titleLabel.textAlignment: center;
+}
+
