@@ -1,6 +1,6 @@
 {
   "name": "com.myfiziq.sdk",
-  "version": "18.2.1",
+  "version": "18.2.21",
   "description": "MyFiziqSDK Cordova plugin",
   "cordova": {
     "id": "com.myfiziq.sdk",

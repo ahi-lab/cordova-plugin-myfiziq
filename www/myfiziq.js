@@ -40,6 +40,11 @@ module.exports = {
     mfzSdkCognitoUserPoolLoginsKey: function (success_cb, error_cb) {
         exec(success_cb, error_cb, 'MyFiziq', 'mfzSdkCognitoUserPoolLoginsKey', []);
     },
+
+    /* MyFiziqBundle */
+    mfzSdkLoadCSS: function (css_file_path, success_cb, error_cb) {
+        exec(success_cb, error_cb, 'MyFiziq', 'mfzSdkLoadCSS', [css_file_path]);
+    },
     
     /* MyFiziqUser */
     mfzUserRegister: function (optional_email, success_cb, error_cb) {

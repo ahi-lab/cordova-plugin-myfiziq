@@ -16,6 +16,8 @@
 - (void)mfzSdkCognitoUserPoolId:(CDVInvokedUrlCommand *)command;
 - (void)mfzSdkCognitoUserPoolRegion:(CDVInvokedUrlCommand *)command;
 - (void)mfzSdkCognitoUserPoolLoginsKey:(CDVInvokedUrlCommand *)command;
+// MyFiziqBundle
+- (void)mfzSdkLoadCSS:(CDVInvokedUrlCommand *)command;
 // MyFiziqUser
 - (void)mfzUserRegister:(CDVInvokedUrlCommand *)command;
 - (void)mfzUserLogin:(CDVInvokedUrlCommand *)command;

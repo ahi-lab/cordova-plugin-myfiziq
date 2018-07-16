@@ -259,6 +259,27 @@ indirectly invokes plugin 'logins' with the auth token set.
     }
 }
 
+#pragma mark - MyFiziqBundle Methods
+
+- (void)mfzSdkLoadCSS:(CDVInvokedUrlCommand *)command {
+    __block CDVPluginResult *pluginResult = nil;
+    @try {
+        NSString *cssPath = [command.arguments objectAtIndex:0];
+        MyFiziqBundle *mfzBndl = [MyFiziqBundle shared];
+        if ([mfzBndl.css loadStyleSheetFromFile:cssPath]) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"CSS File not found."];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }
+    } @catch (NSException *exception) {
+        NSLog(@"%@", exception.reason);
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
+}
+
 #pragma mark - MyFiziqUser Methods
 
 /*

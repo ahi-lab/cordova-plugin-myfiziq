@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="com.myfiziq.sdk"
-        version="18.2.1">
+        version="18.2.21">
 
   <name>MyFiziq</name>
   <description>MyFiziqSDK Cordova plugin</description>
@@ -44,7 +44,7 @@
       <source url="https://github.com/CocoaPods/Specs.git"/>
     </pods-config>
     <!-- use the latest version of a pod -->
-    <pod branch="18.2.1" git="https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios" name="MyFiziqSDK" />
+    <pod branch="18.2.21" git="https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios" name="MyFiziqSDK" />
     
     <config-file target="config.xml" parent="/widget">
       <feature name="MyFiziq">
