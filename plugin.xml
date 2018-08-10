@@ -44,7 +44,7 @@
       <source url="https://github.com/CocoaPods/Specs.git"/>
     </pods-config>
     <!-- use the latest version of a pod -->
-    <pod branch="18.2.21" git="https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios" name="MyFiziqSDK" />
+    <pod branch="18.2.21_rm_css" git="https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/myfiziq-sdk-ios" name="MyFiziqSDK" />
     
     <config-file target="config.xml" parent="/widget">
       <feature name="MyFiziq">
