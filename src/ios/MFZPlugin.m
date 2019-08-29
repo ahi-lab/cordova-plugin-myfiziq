@@ -67,7 +67,7 @@ indirectly invokes plugin 'logins' with the auth token set.
         NSString *secret = [command.arguments objectAtIndex:1];
         NSString *env = [command.arguments objectAtIndex:2];
         // REQUIRED: Initiate the MyFiziq service with the App configuration.
-        self.m_config = @{ kMFZSetupKey:key,kMFZSetupSecret:secret, kMFZSetupEnvironment:env };
+        self.m_config = @{ MFZSdkSetupKey:key,MFZSdkSetupSecret:secret, MFZSdkSetupEnvironment:env };
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         [mfz setupWithConfig:self.m_config
                 authDelegate:self
@@ -124,7 +124,7 @@ indirectly invokes plugin 'logins' with the auth token set.
     __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
-        [mfz initiateAvatarCreationWithOptions:nil fromViewController:self.viewController completion:^(NSError * _Nullable errCapture) {
+        [mfz initiateAvatarCreationWithOptions:nil withMiscellaneousData:nil fromViewController:self.viewController completion:^(NSError * _Nullable errCapture) {
             if (!errCapture) {
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -422,10 +422,10 @@ indirectly invokes plugin 'logins' with the auth token set.
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         NSNumber *newGender = [command.arguments objectAtIndex:0];
-        if ([newGender unsignedIntegerValue] == kMFZGenderMale) {
-            mfz.user.gender = kMFZGenderMale;
+        if ([newGender unsignedIntegerValue] == MFZGenderMale) {
+            mfz.user.gender = MFZGenderMale;
         } else {
-            mfz.user.gender = kMFZGenderFemale;
+            mfz.user.gender = MFZGenderFemale;
         }
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.user.gender];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -482,10 +482,10 @@ indirectly invokes plugin 'logins' with the auth token set.
     @try {
         MyFiziqSDK *mfz = [MyFiziqSDK shared];
         NSNumber *newMeasurePref = [command.arguments objectAtIndex:0];
-        if ([newMeasurePref unsignedIntegerValue] == kMFZMeasurementImperial) {
-            mfz.user.measurementPreference = kMFZMeasurementImperial;
+        if ([newMeasurePref unsignedIntegerValue] == MFZMeasurementImperial) {
+            mfz.user.measurementPreference = MFZMeasurementImperial;
         } else {
-            mfz.user.measurementPreference = kMFZMeasurementMetric;
+            mfz.user.measurementPreference = MFZMeasurementMetric;
         }
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:mfz.user.measurementPreference];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -658,7 +658,7 @@ indirectly invokes plugin 'logins' with the auth token set.
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No corresponding avatar with attempt id found"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:avatar.meshCachedFile.path];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:avatar.meshFile.path];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     } @catch (NSException *exception) {
@@ -690,11 +690,11 @@ indirectly invokes plugin 'logins' with the auth token set.
     __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
-        if (!avatar) {
+        if (!avatar || !avatar.measurements || ![avatar.measurements objectForKey:@"heightCM"]) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No corresponding avatar with attempt id found"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:avatar.heightInCm];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:[avatar.measurements objectForKey:@"heightCM"].doubleValue];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     } @catch (NSException *exception) {
@@ -708,11 +708,11 @@ indirectly invokes plugin 'logins' with the auth token set.
     __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
-        if (!avatar) {
+        if (!avatar || !avatar.measurements || ![avatar.measurements objectForKey:@"weightKG"]) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No corresponding avatar with attempt id found"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:avatar.weightInKg];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:[avatar.measurements objectForKey:@"weightKG"].doubleValue];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     } @catch (NSException *exception) {
@@ -726,11 +726,11 @@ indirectly invokes plugin 'logins' with the auth token set.
     __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
-        if (!avatar) {
+        if (!avatar || !avatar.measurements || ![avatar.measurements objectForKey:@"chestCM"]) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No corresponding avatar with attempt id found"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:avatar.chestInCm];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:[avatar.measurements objectForKey:@"chestCM"].doubleValue];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     } @catch (NSException *exception) {
@@ -744,11 +744,11 @@ indirectly invokes plugin 'logins' with the auth token set.
     __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
-        if (!avatar) {
+        if (!avatar || !avatar.measurements || ![avatar.measurements objectForKey:@"waistCM"]) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No corresponding avatar with attempt id found"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:avatar.waistInCm];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:[avatar.measurements objectForKey:@"waistCM"].doubleValue];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     } @catch (NSException *exception) {
@@ -762,11 +762,11 @@ indirectly invokes plugin 'logins' with the auth token set.
     __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
-        if (!avatar) {
+        if (!avatar || !avatar.measurements || ![avatar.measurements objectForKey:@"hipsCM"]) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No corresponding avatar with attempt id found"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:avatar.hipInCm];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:[avatar.measurements objectForKey:@"hipsCM"].doubleValue];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     } @catch (NSException *exception) {
@@ -780,11 +780,11 @@ indirectly invokes plugin 'logins' with the auth token set.
     __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
-        if (!avatar) {
+        if (!avatar || !avatar.measurements || ![avatar.measurements objectForKey:@"inseamCM"]) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No corresponding avatar with attempt id found"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:avatar.inseamInCm];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:[avatar.measurements objectForKey:@"inseamCM"].doubleValue];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     } @catch (NSException *exception) {
@@ -798,11 +798,11 @@ indirectly invokes plugin 'logins' with the auth token set.
     __block CDVPluginResult *pluginResult = nil;
     @try {
         MyFiziqAvatar *avatar = [self getAvatarForAttemptId:[command.arguments objectAtIndex:0]];
-        if (!avatar) {
+        if (!avatar || !avatar.measurements || ![avatar.measurements objectForKey:@"thighCM"]) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No corresponding avatar with attempt id found"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:avatar.thighInCm];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:[avatar.measurements objectForKey:@"thighCM"].doubleValue];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     } @catch (NSException *exception) {

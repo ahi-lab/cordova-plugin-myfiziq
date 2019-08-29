@@ -1,5 +1,7 @@
 ![MyFiziq Logo](https://www.myfiziq.com/assets/images/logo.svg)
 
+Cordova/PhoneGap plugin of the MyFiziq SDK. Allows Cordova/PhoneGap based projects to be able to utilize MyFiziq technology.
+
 # Installation
 
 1. Add the MyFiziqSDK Cordova Plugin to the Cordova Project:
@@ -46,6 +48,10 @@ Where: **MYFIZIQ KEY** and **MYFIZIQ SECRET** are the token and secret keys prov
 
 If user not logged in, pass empty strings to the answer function, for example: `myfiziq.mfzSdkAnswerLogins("", "", success, failure);`.
 
+## Example Project
+
+An example React Native project is available for reference on how to integrate this plugin: [https://github.com/MyFiziqApp/myfiziq-cordova-boilerplate](https://github.com/MyFiziqApp/myfiziq-cordova-boilerplate)
+
 ## Custom styling with CSS
 
 The MyFiziqSDK UI can be customised to a high degree of flexibility using CSS. The iOS SDK uses the [InterfaCSS](https://github.com/tolo/InterfaCSS) framework to bind the CSS stylings to the native UI. By simply distributing a custom CSS file with the APP and calling the `mfzSdkLoadCSS` method to declare the CSS file path will cause the MyFiziq Avatar Creation Process UI to be customised. For reference, the base CSS can be refered to to [here](myfiziq-sdk.css).
@@ -53,7 +59,3 @@ The MyFiziqSDK UI can be customised to a high degree of flexibility using CSS. T
 ## Author
 
 MyFiziq iOS Dev, dev@myfiziq.com
-
-## License
-
-MyFiziqSDK is Copyright 2017, 2018. Refer to LICENSE.md for details.
