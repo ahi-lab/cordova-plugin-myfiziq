@@ -50,7 +50,7 @@ If user not logged in, pass empty strings to the answer function, for example: `
 
 ## Example Project
 
-An example React Native project is available for reference on how to integrate this plugin: [https://github.com/MyFiziqApp/myfiziq-cordova-boilerplate](https://github.com/MyFiziqApp/myfiziq-cordova-boilerplate)
+An example React Native project is available for reference on how to integrate this plugin: [https://github.com/MyFiziqApp/cordova-plugin-myfiziq-example](https://github.com/MyFiziqApp/cordova-plugin-myfiziq-example)
 
 ## Custom styling with CSS
 
